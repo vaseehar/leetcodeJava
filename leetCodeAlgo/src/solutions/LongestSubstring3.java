@@ -9,7 +9,7 @@ public class LongestSubstring3 {
 		// wxyzxabcde - 8
 		// aaaaaaaaaa - 1
 		// ababababab - 2
-		System.out.println(lengthOfLongestSubstring("ababababab"));
+		System.out.println(lengthOfLongestSubstringSlidingWindow("wxyzxabcde"));
 	}
 
 	//my naive solution
@@ -36,4 +36,29 @@ public class LongestSubstring3 {
 		return currMax;
 
 	}
+	
+	
+	 public static int lengthOfLongestSubstringSlidingWindow(String s) {
+	        int[] chars = new int[128];
+
+	        int left = 0;
+	        int right = 0;
+
+	        int res = 0;
+	        while (right < s.length()) {
+	            char r = s.charAt(right);
+	            chars[r]++;
+
+	            while (chars[r] > 1) {
+	                char l = s.charAt(left);
+	                chars[l]--;
+	                left++;
+	            }
+
+	            res = Math.max(res, right - left + 1);
+
+	            right++;
+	        }
+	        return res;
+	    }
 }
